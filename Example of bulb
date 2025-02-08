@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Light Bulbs Animation</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .light-bulb {
+            width: 150px;
+            position: absolute;
+            top: 40%;
+            transform: translateX(-50%);
+            transition: left 1.5s ease-in-out;
+        }
+
+        #bulbImage {
+            left: 50%;
+        }
+
+        #bulbImage2 {
+            left: 50%;
+        }
+
+        .button {
+            position: absolute;
+            bottom: 50px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: black;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: gray;
+        }
+    </style>
+</head>
+<body id="body">
+    <img src="https://d1tgh8fmlzexmh.cloudfront.net/ccbp-dynamic-webapps/bulb-go-off-img.png" 
+         class="light-bulb" id="bulbImage" alt="Bulb Left"/>
+
+    <img src="https://d1tgh8fmlzexmh.cloudfront.net/ccbp-dynamic-webapps/bulb-go-off-img.png" 
+         class="light-bulb" id="bulbImage2" alt="Bulb Right"/>
+
+    <button class="button" id="toggleButton" onClick="toggleLight()">Turn On</button>
+
+    <script>
+        let isOn = false;
+        function toggleLight() {
+            const body = document.getElementById("body");
+            const bulbImage = document.getElementById("bulbImage");
+            const bulbImage2 = document.getElementById("bulbImage2");
+            const toggleButton = document.getElementById("toggleButton");
+
+            isOn = !isOn;
+
+            if (isOn) {
+                body.style.backgroundColor = 'lightyellow';
+                bulbImage.src = "https://d1tgh8fmlzexmh.cloudfront.net/ccbp-dynamic-webapps/bulb-go-on-img.png";
+                bulbImage2.src = "https://d1tgh8fmlzexmh.cloudfront.net/ccbp-dynamic-webapps/bulb-go-on-img.png";
+                toggleButton.innerText = "Turn Off";
+                bulbImage.style.left = "40%";
+                bulbImage2.style.left = "60%";
+            } else {
+                body.style.backgroundColor = 'white';
+                bulbImage.src = "https://d1tgh8fmlzexmh.cloudfront.net/ccbp-dynamic-webapps/bulb-go-off-img.png";
+                bulbImage2.src = "https://d1tgh8fmlzexmh.cloudfront.net/ccbp-dynamic-webapps/bulb-go-off-img.png";
+                toggleButton.innerText = "Turn On";
+                bulbImage.style.left = "50%";
+                bulbImage2.style.left = "50%";
+                
+            }
+        }
+    </script>
+</body>
+</html>
+
+STATE:
+state in react:
+in react , state is a like a container that holds the data or info for a component
+this data can be changed over time based on user actions or events
+WHY STATE is imp?
+-->it allows us the component to remember things
+-->ex: if you click a button to change a color,the state will store hold the color and show on the screen
+
+2.. functional components:
+SYNTAX:
+const[statevariable,setStateFunction]=useState(initialValue)
+1.STATEVARIABLE: Holds the current state.
+2.setSTATEFUNCTION: A function which is used to update the state
+3.initial value: the initial value of the state varaibale when the component first rendors.

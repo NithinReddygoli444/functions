@@ -1,0 +1,67 @@
+12/02/25
+React Memo:
+--it is a hoc (high order components) is not a react hook.
+--it will stop unnecessary – rendering of functional components os its props.
+-- it will improve the performance of the functional components
+App.js:
+import { useState } from "react";
+import ChildA from "./ChildA";
+import ChildB from "./ChildB";
+import "./App.css";
+
+const Parent = () => {
+  const [count, setCount] = useState(0);
+  const increment = () => {
+    setCount(c => c + 1);
+  };
+  const decrement = () => {
+    setCount(c => c - 1);
+  };
+  return (
+    <div className="message">
+      <ChildA />
+      <ChildB count={count} increment={increment} decrement={decrement} />
+    </div>
+  );
+};
+
+export default Parent;
+
+App.CSS:
+.message{
+  color: black;
+  font-size: 40px;
+  text-align: center;
+  width: 30%;
+  margin-left: 700px;
+
+}
+button{
+  background-color: #4CAF50;
+  color: white;
+  padding: 40px 50px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 50px;
+}
+
+ChildA.js:
+const ChildA = () => {
+    console.log("Child A Rendered")
+    return <h2>This is Child</h2>
+    };
+    export default ChildA;
+
+ChildB.js:
+const ChildB = ({ count, increment,decrement }) => {
+    console.log("Child B rendered");
+    return (
+        <div>
+            <h1>Count: {count}</h1>
+            <button onClick={() => increment()}>Increment</button>
+            <button  onClick={() => decrement()}>Decrement</button>
+        </div>
+    )
+}
+export default ChildB;

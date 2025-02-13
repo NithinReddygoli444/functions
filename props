@@ -1,0 +1,120 @@
+13/02/25
+use context();
+props(properties) in react are used to pass data from parent to child component.
+Prop drilling is the process of passing data from parent component to deeply (nested) child component through intermediate components by passing data as props at each level parent.
+import "./App.css";
+  function App(){
+    const data="I am Nithin";
+    return (
+      <div className="message">
+        <User1 data={data}/>
+      </div>
+    )
+  }
+  function User1({data}){
+    return <User2 data={data}/> 
+  }
+  function User2({data}){
+    return <User3 data={data}/>
+  }
+  function User3({data}){
+    return <User4 data={data}/>
+  }
+  function User4({data}){
+    return <div>{data}</div>
+  }
+  export default App;
+
+Example:
+import React,{createContext,useContext} from "react";
+import "./App.css";
+///create the context to hold the data
+const Datacontext=createContext();
+///parent components
+  function App(){
+    const data="I am Nithin"
+    return (
+      //provide the data to entire app
+      <Datacontext.Provider value={data}>
+        <User1/>
+      </Datacontext.Provider>
+    )  }
+  function User1({data}){
+    return <User2 /> 
+  }
+  function User2({data}){
+    return <User3 />
+  }
+  function User3({data}){
+    return <User4 />
+  }
+  function User4(){
+    const data=useContext(Datacontext)
+    return <div className="message">{data}</div>
+  }  
+export default App;
+import React from 'react';
+// import "./App.css";
+const Profile = ({ name, email }) => {
+  return(
+    <div>
+      <h1>Profile</h1>
+      <p>name:{name}</p>
+      <p>email:{email}</p>
+    </div>
+  )
+}
+const UserInfo = ({ name, email }) => {
+  return <Profile name={name} email={email} />;
+};
+
+const App = () => {
+  const user = {
+    name: "Nithin",
+    email: "nithinreddygoli@gmail.com",
+  };
+
+  return (
+    <div>
+      <UserInfo name={user.name} email={user.email} />
+    </div>
+  );
+};
+
+export default App;
+
+import React, { createContext, useContext } from "react";
+
+// Create Context
+const UserContext = createContext();
+
+const Profile = () => {
+  const user = useContext(UserContext);
+  return (
+    <div>
+      <h2>Profile</h2>
+      <p>Name: {user.name}</p>
+      <p>Email: {user.email}</p>
+    </div>
+  );
+};
+
+const UserInfo = () => {
+  return <Profile />;
+};
+
+const App = () => {
+  const user = {
+    name: "Nithin",
+    email: "nithinreddygoli@gmail.com",
+  };
+
+  return (
+    <UserContext.Provider value={user}>
+      <UserInfo />
+    </UserContext.Provider>
+  );
+};
+
+export default App;
+

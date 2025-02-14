@@ -1,0 +1,70 @@
+
+14/02/25 
+import React, { useReducer, useState } from "react"; 
+import "./App.css";
+// Reducer function to track the number of apples
+function appleReducer(state, action) { 
+  switch (action.type) { 
+    case 'ADD_APPLE': 
+      return state + 1; 
+    case 'EAT_APPLE': 
+      return state > 0 ? state - 1 : 0; 
+    default: 
+      return state; 
+  } 
+} 
+
+function App() { 
+  const [count, dispatch] = useReducer(appleReducer, 0); 
+  const [apples, setApples] = useState([]); 
+
+  const handleAddApple = () => {
+    dispatch({ type: 'ADD_APPLE' });
+    setApples([...apples, <img key={apples.length} src={require('./image.png')} alt='apple'  style={{'height':"10","width":"10"}}/>]);
+  }
+
+  const handleEatApple = () => {
+    if (apples.length > 0) {
+      dispatch({ type: 'EAT_APPLE' });
+      setApples(apples.slice(0, -1));
+    }
+  }
+
+  return ( 
+    <div className="app.css"> 
+      <h1>Apple Counter</h1> 
+      <p>Number of apples: {count}</p> 
+      <button onClick={handleAddApple}>Add Apple</button> 
+      <button onClick={handleEatApple}>Eat Apple</button> 
+      {apples}
+    </div> 
+  ); 
+} 
+
+export default App;
+
+import React from "react";
+const Child=({changeMessage})=>{
+    return(
+        <button onClick={()=>changeMessage()}>Click me</button>
+    )
+}
+export default Child;
+import React, { useState } from "react";
+import Child from './components/Child';
+const Parent=()=>{
+  const [message,setMessage]=useState('Hello Guna')
+
+  const changeMessage=()=>{
+    setMessage('Hello button is clicked')
+  };
+  return (
+    <div>
+      <h1>
+        {message}
+      </h1>
+      <Child changeMessage={changeMessage}/>
+    </div>
+  )
+}
+export default Parent;
